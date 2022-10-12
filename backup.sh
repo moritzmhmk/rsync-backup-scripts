@@ -8,7 +8,7 @@ SOURCE=$1
 TARGET=$2
 
 echo "Starting backup from $SOURCE to $TARGET using rsync."
-rsync --archive --human-readable --progress --link-dest "$TARGET/current" "$SOURCE/" "$TARGET/incomplete"
+rsync --archive --human-readable --progress --link-dest "../current" "$SOURCE/" "$TARGET/incomplete"
 rsync_exit_code=$?
 
 if [ "$rsync_exit_code" -ne "0" ] && [ "$rsync_exit_code" -ne "23" ] && [ "$rsync_exit_code" -ne "24" ]; then
