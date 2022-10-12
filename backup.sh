@@ -46,8 +46,8 @@ fi
 MAX_HOURLY_BACKUPS=12
 MAX_DAILY_BACKUPS=30
 
-HOURLY_BACKUPS=(????-??-??_??.??.??)
-DAILY_BACKUPS=(????-??-??)
+HOURLY_BACKUPS=("$TARGET"/????-??-??_??h)
+DAILY_BACKUPS=("$TARGET"/????-??-??)
 
 if [ ${#HOURLY_BACKUPS[@]} -gt $MAX_HOURLY_BACKUPS ]; then
     old_HOURLY_BACKUPS=("${HOURLY_BACKUPS[@]::${#HOURLY_BACKUPS[@]}-$MAX_HOURLY_BACKUPS}")
@@ -57,7 +57,7 @@ fi
 
 if [ ${#DAILY_BACKUPS[@]} -gt $MAX_DAILY_BACKUPS ]; then
     old_DAILY_BACKUPS=("${DAILY_BACKUPS[@]::${#DAILY_BACKUPS[@]}-$MAX_DAILY_BACKUPS}")
-    echo "Removing ${#old_DAILY_BACKUPS[@]} old hourly backups: " "${old_DAILY_BACKUPS[@]}"
+    echo "Removing ${#old_DAILY_BACKUPS[@]} old daily backups: " "${old_DAILY_BACKUPS[@]}"
     rm -r "${old_DAILY_BACKUPS[@]}"
 fi
 
