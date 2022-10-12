@@ -10,15 +10,14 @@ TARGET=$2
 rsync --archive --human-readable --progress --link-dest "$TARGET/current" "$SOURCE/" "$TARGET/incomplete"
 rsync_exit_code=$?
 
-if [ "$rsync_exit_code" -eq "0" ] || [ "$rsync_exit_code" -eq "23" ] || [ "$rsync_exit_code" -eq "24" ] 
-then
+if [ "$rsync_exit_code" -eq "0" ] || [ "$rsync_exit_code" -eq "23" ] || [ "$rsync_exit_code" -eq "24" ]; then
     # delete existing current backup and rename "incomplete" backup (that is now complete)
     rm -r "$TARGET/current"
     mv "$TARGET/incomplete" "$TARGET/current"
 
     HOURLY_NAME="$(date +%Y-%m-%d_%Hh)" # 2022-10-11_16h
-    DAILY_NAME="$(date +%Y-%m-%d)" # 2022-10-11
-    MONTHLY_NAME="$(date +%Y-%m)" # 2022-10
+    DAILY_NAME="$(date +%Y-%m-%d)"      # 2022-10-11
+    MONTHLY_NAME="$(date +%Y-%m)"       # 2022-10
 
     # create hourly backup copy
     if [ ! -e "$TARGET/$HOURLY_NAME" ]; then
