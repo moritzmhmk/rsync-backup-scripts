@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 source target"
+    echo "Usage: $0 source target [rsync options - e.g. --exclude]"
     exit 1
 fi
 
@@ -8,7 +8,7 @@ SOURCE=$1
 TARGET=$2
 
 echo "Starting backup from $SOURCE to $TARGET using rsync."
-rsync --archive --human-readable --progress --link-dest "../current" "$SOURCE/" "$TARGET/incomplete"
+rsync --archive "${@:3}" --human-readable --progress --link-dest "../current" "$SOURCE/" "$TARGET/incomplete"
 rsync_exit_code=$?
 
 if [ "$rsync_exit_code" -ne "0" ] && [ "$rsync_exit_code" -ne "23" ] && [ "$rsync_exit_code" -ne "24" ]; then
