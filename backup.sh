@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if [ "$#" -ne 2 ]; then
+if [ "$#" -lt 2 ]; then
     echo "Usage: $0 source target [rsync options - e.g. --exclude]"
     exit 1
 fi
